@@ -1,0 +1,1 @@
+export const API_URL ="https://cineelite.shahid-v2.repl.co";
