@@ -1,5 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { useAuth } from "../context/AuthContext";
 export function Header() {
     const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -8,6 +9,12 @@ export function Header() {
     const [burger, setBurger] = useState(false);
   const handleBurger = () => {
     setBurger(!burger);
+  };
+  const [dialog, setDialog] = useState(false);
+  const navigate = useNavigate();
+  const { token } = useAuth();
+  const checkUserStatus = () => {
+     navigate("/signup", { replace: true });
   };
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
@@ -54,36 +61,15 @@ export function Header() {
        </span>
     </ul>
   </div>
-  <div className=" flex col-start-12 col-end-14 ">
-      <button  className=" mr-3 text-sm  rounded-full md:mr-0 " 
-      onClick={handleOpen}>
-        <img className="w-12 h-12 rounded-full" src="https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png" alt="user photo"/>
-      </button>
-      {  open && (
-      <div className=" absolute  mt-12 right-0 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-        <div className="py-3 px-4">
-          <span className="block text-sm text-gray-900 dark:text-white">Shahid Khan</span>
-          <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">mo.shahidkhan1999@gmail.com</span>
-        </div>
-        <ul className="py-1" >
-          <li>
-            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-          </li>
-          <li>
-            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-          </li>
-          <li>
-            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-          </li>
-          <li>
-            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-          </li>
-        </ul>
-      </div>
-      )}
-      
+ 
+  <button
+            className=""
+            onClick={checkUserStatus}
+          >
+            {token ? "LOGOUT" : "LOGIN"}
+          </button>
      
-  </div>
+  
   </div>
 </nav>
 
