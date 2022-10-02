@@ -22,8 +22,8 @@ export function Toast({ toast, setToast, bagType }) {
           : "alert success-alert top-right-toast"}
       >
         <span className="material-icons-outlined md-24">task_alt</span>
-        {bagType === "cart" ? (
-          <> Product added to cart! </>
+        {bagType === "kit" ? (
+          <> Product added to kit! </>
         ) : (
           <> Product added to watchlist! </>
         )}

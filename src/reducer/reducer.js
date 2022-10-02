@@ -18,57 +18,22 @@ export const reducerFunc = (state, action) => {
           watchlist: action.payload,
         };
   
-      case "ADD_TO_CART":
-        return {
-          ...state,
-          cart: [...state.cart, { ...action.payload, quantity: 1 }],
-          totalPrice: state.totalPrice + action.payload.price,
-        };
+      case "ADD_TO_KIT":
+        return { ...state, kit: [...state.kit, action.payload] };
   
-      case "INC_QTY":
-        return {
-          ...state,
-          cart: state.cart.map((currentCartItem) =>
-            currentCartItem._id === action.payload._id
-              ? { ...currentCartItem, quantity: currentCartItem.quantity + 1 }
-              : currentCartItem
-          ),
-          totalPrice: state.totalPrice + action.payload.price,
-        };
+      
+        case "REMOVE_FROM_KIT":
+          return {
+            ...state,
+            kit: state.kit.filter(
+              (currentKitItem) =>
+                currentKitItem._id !== action.payload._id
+            ),
+          };
   
-      case "DEC_QTY":
-        return {
-          ...state,
-          cart: state.cart.map((currentCartItem) =>
-            currentCartItem._id === action.payload._id
-              ? { ...currentCartItem, quantity: currentCartItem.quantity - 1 }
-              : currentCartItem
-          ),
-          totalPrice: state.totalPrice - action.payload.price,
-        };
+
   
-      case "REMOVE_FROM_CART":
-        return {
-          ...state,
-          cart: state.cart.filter(
-            (currentCartItem) => currentCartItem._id !== action.payload._id
-          ),
-          totalPrice:
-            state.totalPrice - action.payload.quantity * action.payload.price,
-        };
   
-      case "CLEAR_Kit": {
-        return {
-          ...state,
-          kit: []
-        }
-      }
-  
-      case "SET_TOTAL_PRICE":
-        return {
-          ...state,
-          totalPrice: action.payload,
-        };
   
       case "ADD_TO_WATCHLIST":
         return { ...state, watchlist: [...state.watchlist, action.payload] };

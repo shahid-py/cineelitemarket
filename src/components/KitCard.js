@@ -4,9 +4,9 @@ import { useData } from "../context/DataContext";
 import { API_URL } from "../utils";
 
 
-export function WatchlistCard({ product }) {
+export function KitCard({ product }) {
   const {
-
+  
     dispatch
   } = useData();
 
@@ -18,15 +18,15 @@ export function WatchlistCard({ product }) {
 
   
 
-  const removeProductFromWatchlist = async (e) => {
+  const removeProductFromKit = async (e) => {
     e.preventDefault();
     try {
       const {
         data: { success },
-      } = await axios.delete(`${API_URL}/watchlist/${_id}`);
+      } = await axios.delete(`${API_URL}/kit/${_id}`);
 
       if (success) {
-        dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: product });
+        dispatch({ type: "REMOVE_FROM_KIT", payload: product });
       }
     } catch (error) {
       console.error(error);
@@ -54,14 +54,13 @@ export function WatchlistCard({ product }) {
           <div className=" my-auto text-center">
          
           
-         
-       
+          
             <button
               className="mx-5"
-              onClick={(e) => removeProductFromWatchlist(e)}
+              onClick={(e) => removeProductFromKit(e)}
             >
               <span className="material-icons-outlined md-light">
-                bookmark
+                remove
               </span>
              
             </button>

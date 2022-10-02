@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 export function Header() {
@@ -10,14 +10,15 @@ export function Header() {
   const handleBurger = () => {
     setBurger(!burger);
   };
+
   const [dialog, setDialog] = useState(false);
   const navigate = useNavigate();
   const { token } = useAuth();
   const checkUserStatus = () => {
-     navigate("/signup", { replace: true });
+     navigate("/login", { replace: true });
   };
   return (
-    <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+    <nav className="bg-gray-800 px-2 py-2 sm:px-4  dark:bg-gray-900">
   <div className="w-full px-6 sm:px-8  mx-auto grid grid-flow-col py-3 sm:py-4">
      
   <button type="button" className="inline-flex items-center  ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" 
@@ -30,44 +31,79 @@ export function Header() {
 <>
      <ul className=" duration-300 md:hidden fixed bg-white left-0 top-0 z-40  h-screen w-2/3 text-justify   flex-row   text-l font-medium   ">
         <li className="pb-4  pt-3 text-center block font-semibold border-b-4 text-2xl">
-         CineElite
+         Equipment
         </li>
         <li className="block p-4  text-center text-gray-700  hover:bg-gray-100 ">
-          Dashboard 
+          My Kit
         </li>
         <li className="p-4 block text-center text-gray-700 hover:bg-gray-100 ">
-        Messages
+        Watchlist
+        </li>
+        <li className="p-4 block text-center text-gray-700 hover:bg-gray-100 ">
+        Packages
+        </li>
+        <li className="p-4 block text-center text-gray-700 hover:bg-gray-100 ">
+        History
+        </li>
+        <li className="p-4 block text-center text-red-600 text-gray-700 hover:bg-gray-100 ">
+        <button
+            
+            onClick={checkUserStatus}
+          >
+            {token ? "LOGOUT" : "LOGIN"}
+          </button>
         </li>
        
         
       </ul>
       <div   onClick={() => handleBurger(false)} className=" fixed md:hidden  w-1/3 right-0 top-0 h-screen bg-black bg-opacity-50" >
+   
       </div>
       </>
 
 
    )}
  
-      <span className="col-start-2 md:col-end-3 m text-xl font-semibold flex items-center">CineElite</span>
+      <Link to="/"className="col-start-2 md:col-end-3  text-2xl text-white font-medium flex items-center">Equipment</Link>
   
 
-  <div className="hidden  w-full md:flex col-start-10 col-end-12  md:w-auto " >
-    <ul className=" flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-     <li>
-        <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Dashboard</a>
-      </li>
-      <span className="material-icons-outlined">
-        chat
-       </span>
+  <div className="hidden  w-full bg-gray-800 md:flex col-start-5 col-end-9  md:w-auto " >
+    <ul className=" flex flex-row text-xl text-white font-thin  gap-10">
+    <Link to="/">
+            <button className="">
+              Explore
+            </button>
+          </Link>
+    <Link to="/kit" >
+            <button className="">
+              My Kit
+            </button>
+          </Link>
+    <Link to="/watchlist">
+            <button className="">
+              Watchlist
+            </button>
+          </Link>
+          <Link to="/watchlist">
+            <button className="">
+              Packages
+            </button>
+          </Link>
+          <Link to="/watchlist">
+            <button className="">
+              History
+            </button>
+          </Link>
     </ul>
   </div>
- 
   <button
-            className=""
+            className="col-start-12 text-l text-white font-small"
             onClick={checkUserStatus}
           >
             {token ? "LOGOUT" : "LOGIN"}
           </button>
+ 
+
      
   
   </div>

@@ -46,6 +46,13 @@ export function DataProvider({ children }) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+
+        const {
+          data: { kit },
+        } = await axios.get(`${API_URL}/kit`);
+
+        dispatch({ type: "INITIALIZE_KIT", payload: kit });
+        
         const {
           data: { watchlist },
         } = await axios.get(`${API_URL}/watchlist`);

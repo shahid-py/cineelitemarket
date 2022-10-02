@@ -9,7 +9,7 @@ import { Toast } from "./Toast";
 
 export function ProductCard({ product }) {
   const {
-    state: { cart, watchlist },
+    state: { kit, watchlist },
     dispatch,
   } = useData();
   const { token } = useAuth();
@@ -20,34 +20,34 @@ export function ProductCard({ product }) {
 
   const { _id, typeOfBrand,  name, image } = product;
 
-  const isInCart = cart?.find((cartItem) => cartItem._id === _id);
+  const isInKit = kit?.find((kitItem) => kitItem._id === _id);
   const isInWatchlist = watchlist?.find(
     (watchlistItem) => watchlistItem._id === _id
   );
 
-  const cartHandler = async (e) => {
+  const kitHandler = async (e) => {
     
-    if (!isInCart) {
+    if (!isInKit) {
       try {
         const {
           data: { success },
-        } = await axios.post(`${API_URL}/cart`, {
+        } = await axios.post(`${API_URL}/kit`, {
           product: {
             _id,
-            quantity: 1,
+          
           },
         });
 
         if (success) {
-          dispatch({ type: "ADD_TO_CART", payload: product });
+          dispatch({ type: "ADD_TO_KIT", payload: product });
           setToast(true);
-          setBagType("cart");
+          setBagType("kit");
         }
       } catch (error) {
         console.error(error);
       }
     } else {
-      navigate("/cart");
+      navigate("/kit");
     }
   };
 
@@ -95,18 +95,23 @@ export function ProductCard({ product }) {
             <div className=" my-auto text-center">
            
             
-            {isInCart ? (
-              <button
+            {isInKit ? (
+              
+                <button
                 className=""
-                
+                onClick={(e) => kitHandler(e)}
+
               >
              
-                <span className="material-icons-outlined">east</span>
+                <span></span>
               </button>
             ) : (
               <button
                 className="mx-5"
-                onClick={(e) => cartHandler(e)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  token ? kitHandler(e) : navigate("/login");
+                }}
               >
                 <span className="material-icons-outlined ">
                   add
@@ -132,7 +137,7 @@ export function ProductCard({ product }) {
                 className="mx-5"
                 onClick={(e) => {
                   e.preventDefault();
-                  token ? watchlistHandler(e) : navigate("/signup");
+                  token ? watchlistHandler(e) : navigate("/login");
                 }}
               >
                 <span className="material-icons-outlined md-light">
