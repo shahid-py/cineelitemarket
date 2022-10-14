@@ -5,6 +5,12 @@ export const reducerFunc = (state, action) => {
           ...state,
           inventory: action.payload,
         };
+      
+      // case "ADD_TO_PACKAGE_USER":
+      //   return{
+      //     ...state,
+
+      //   }  
   
       case "INITIALIZE_KIT":
         return {

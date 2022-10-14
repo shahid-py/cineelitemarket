@@ -4,6 +4,7 @@ import {Header} from './components/Header';
 import {Products} from "./pages/index"
 import {Watchlist} from "./pages/index"
 import {Signup} from "./pages/index"
+import { Packages } from "./pages/Packages";
 import PrivateRoute from "./PrivateRoute"
 function App() {
   return (
@@ -13,13 +14,14 @@ function App() {
  <Routes>
       <Route exact path="/" element={<Products />} />
       <Route exact path="/watchlist" element={<PrivateRoute/>} >
-        <Route exact path="/watchlist" element={<Watchlist/>} />
-        </Route>
+      <Route exact path="/watchlist" element={<Watchlist/>} />
+      </Route>
       <Route exact path="/signup" element={<Signup/>}/>
-      </Routes>
+      <Route exact path="/packages" element={<Packages/>}/>
+ </Routes>
  
     </div>
   );
-}
+} 
 
 export default App;
