@@ -7,6 +7,7 @@ import { Kit } from "./pages/index";
 import {Signup} from "./pages/index"
 import { Login } from "./pages/index";
 import { ProductDetails } from "./pages/index";
+import { LandingPage } from "./pages/LandingPage";
 import PrivateRoute from "./PrivateRoute"
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
    
  <Header/>
  <Routes>
+ <Route path="/landingpage" element={<LandingPage/>} />
        <Route path="/" element={<Products />} />
        <Route path="/login" element={<Login/>}/>
        <Route path="/product/:productId" element={<ProductDetails />} />

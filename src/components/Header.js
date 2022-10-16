@@ -18,7 +18,7 @@ export function Header() {
      navigate("/login", { replace: true });
   };
   return (
-    <nav className="bg-gray-800 px-2 py-2 sm:px-4  dark:bg-gray-900">
+    <nav className="bgcolor w-full px-2 py-2 sm:px-4  dark:bg-gray-900">
   <div className="w-full px-6 sm:px-8  mx-auto grid grid-flow-col py-3 sm:py-4">
      
   <button type="button" className="inline-flex items-center  ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" 
@@ -67,7 +67,7 @@ export function Header() {
       <Link to="/"className="col-start-2 md:col-end-3  text-2xl text-white font-medium flex items-center">Equipment</Link>
   
 
-  <div className="hidden  w-full bg-gray-800 md:flex col-start-5 col-end-9  md:w-auto " >
+  <div className="hidden  w-full  md:flex col-start-5 col-end-9  md:w-auto " >
     <ul className=" flex flex-row text-xl text-white font-thin  gap-10">
     <Link to="/">
             <button className="">

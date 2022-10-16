@@ -14,6 +14,10 @@ export function ProductCard({ product }) {
   } = useData();
   const { token } = useAuth();
 
+  const [open, setOpen] = useState(false)
+const handleOpen = () => {
+  setOpen(!open);
+};
   const navigate = useNavigate();
   const [toast, setToast] = useState(false);
   const [bagType, setBagType] = useState("");
@@ -71,13 +75,16 @@ export function ProductCard({ product }) {
       } catch (error) {
         console.error(error);
       }
+    } else {
+      navigate("/watchlist");
     }
   };
 
   return (
     <>
       {toast && <Toast toast={toast} setToast={setToast} bagType={bagType} />}
-      <Link to={`/product/${_id}`} className="link">
+      <button  onClick={() => handleOpen(true)
+      }>
         <div className="bg-white border border-1 border-cyan-100 w-56 h-80 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col  ">
           
 
@@ -92,72 +99,108 @@ export function ProductCard({ product }) {
               <h3 className="mb-2 text-center font-normal tracking-tight    dark:text-white">{name}</h3>
             
           </div>
-            <div className=" my-auto text-center">
-           
-            
-            {isInKit ? (
-              
-                <button
-                className=""
-                onClick={(e) => kitHandler(e)}
-
-              >
-             
-                <span></span>
-              </button>
-            ) : (
-              <button
-                className="mx-5"
-                onClick={(e) => {
-                  e.preventDefault();
-                  token ? kitHandler(e) : navigate("/login");
-                }}
-              >
-                <span className="material-icons-outlined ">
-                  add
-                </span>
-               
-              </button>
-            )}
-            {isInWatchlist ? (
-              <button
-                className=""
-                disabled={true}
-                style={{
-                  cursor: "default",
-                }}
-              >
-                <span className="material-icons-outlined  ">
-                  bookmark
-                </span>
-              
-              </button>
-            ) : (
-              <button
-                className="mx-5"
-                onClick={(e) => {
-                  e.preventDefault();
-                  token ? watchlistHandler(e) : navigate("/login");
-                }}
-              >
-                <span className="material-icons-outlined md-light">
-                bookmark_border
-                </span>
-                
-              </button>
-            )}
+           {open &&(
+             <div className=" absolute flex flex-col my-2 bg-white  border-b-2 border-cyan-100 w-56 h-80 shadow-md text-center">
             <button
-                className="mx-5"
-                
-              >
-                <span className="material-icons-outlined md-light ">
-                 verified_user
+                 className="mx-5 mb-2 p-2 rounded-xl mt-12 hover:bg-sky-700 hover:text-white "
+                 
+               >
+                     
+                 <div className="">
+                 <Link to={`/product/${_id}`} className="link">
+                 <span className="mb-2 text-l font-medium mr-2">View details</span>
+                 <span className="material-icons-outlined md-light  ">
+                 <span class="material-symbols-outlined">
+                 open_in_new
                 </span>
+                 </span>
+                 </Link>
+                 </div>
+                 
+               </button>
+            
+             {isInKit ? (
+               
+                 <button
+                 className=""
+                 onClick={(e) => kitHandler(e)}
+ 
+               >
+              
+              <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-sky-700">
+                 <span className="material-icons-outlined text-white ">
+                   check
+                 </span>
+                 <span className="mb-2 ml-2 text-white font-medium text-m">In My Kit</span>
+                 </div>
                 
-              </button>
-          </div>
+               </button>
+             ) : (
+               <button
+                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-sky-700 hover:text-white"
+                 onClick={(e) => {
+                   e.preventDefault();
+                   token ? kitHandler(e) : navigate("/login");
+                 }}
+               >
+                <div className="">
+                 <span className="material-icons-outlined  ">
+                   add  
+                 </span>
+                 <span className="mb-2 text-m font-medium ml-2 ">Add My kit</span>
+                 </div>
+                
+               </button>
+             )}
+             {isInWatchlist ? (
+               <button
+                 className=""
+                 disabled={true}
+                 style={{
+                   cursor: "default",
+                 }}
+               >
+                 <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-sky-700">
+                 <span className="material-icons-outlined text-white ">
+                   bookmark
+                 </span>
+                 <span className="mb-2 ml-2 text-white font-medium text-m">In My Watchlist</span>
+                 </div>
+               
+               </button>
+             ) : (
+               <button
+                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-sky-700"
+                 onClick={(e) => {
+                   e.preventDefault();
+                   token ? watchlistHandler(e) : navigate("/login");
+                 }}
+               >
+                 <div className="">
+                 <span className="material-icons-outlined md-light  ">
+                   bookmark_border 
+                 </span>
+                 <span className="mb-2 text-l font-medium ml-2">Add Watchlist</span>
+                 </div>
+                 
+               </button>
+             )}
+             <button
+                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-sky-700 hover:text-white "
+                 
+               >
+                 <div className="">
+                 <span className="material-icons-outlined md-light  ">
+                   verified_user
+                 </span>
+                 <span className="mb-2 text-l font-medium  ml-2">Add Certification</span>
+                 </div>
+                 
+               </button>
+           </div>
+           )}
         </div>
-      </Link>
+        </button>
     </>
   );
 }
