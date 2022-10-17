@@ -69,7 +69,7 @@ export function Header() {
 
   <div className="hidden  w-full  md:flex col-start-5 col-end-9  md:w-auto " >
     <ul className=" flex flex-row text-xl text-white font-thin  gap-10">
-    <Link to="/">
+    <Link to="/explore">
             <button className="">
               Explore
             </button>
@@ -84,7 +84,7 @@ export function Header() {
               Watchlist
             </button>
           </Link>
-          <Link to="/watchlist">
+          <Link to="/packages">
             <button className="">
               Packages
             </button>

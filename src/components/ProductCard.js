@@ -5,7 +5,6 @@ import { useAuth } from "../context/AuthContext";
 import { useData } from "../context/DataContext";
 import { API_URL } from "../utils/index";
 
-import { Toast } from "./Toast";
 
 export function ProductCard({ product }) {
   const {
@@ -16,11 +15,13 @@ export function ProductCard({ product }) {
 
   const [open, setOpen] = useState(false)
 const handleOpen = () => {
-  setOpen(!open);
+  
+    setOpen(!open);
+  
+
 };
   const navigate = useNavigate();
-  const [toast, setToast] = useState(false);
-  const [bagType, setBagType] = useState("");
+
 
   const { _id, typeOfBrand,  name, image } = product;
 
@@ -44,8 +45,7 @@ const handleOpen = () => {
 
         if (success) {
           dispatch({ type: "ADD_TO_KIT", payload: product });
-          setToast(true);
-          setBagType("kit");
+          
         }
       } catch (error) {
         console.error(error);
@@ -68,8 +68,7 @@ const handleOpen = () => {
         });
 
         if (success) {
-          setToast(true);
-          setBagType("watchlist");
+       
           dispatch({ type: "ADD_TO_WATCHLIST", payload: product });
         }
       } catch (error) {
@@ -82,27 +81,32 @@ const handleOpen = () => {
 
   return (
     <>
-      {toast && <Toast toast={toast} setToast={setToast} bagType={bagType} />}
-      <button  onClick={() => handleOpen(true)
-      }>
-        <div className="bg-white border border-1 border-cyan-100 w-56 h-80 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col  ">
+
+     
+        
+        <div className="bg-white border border-4 border-gray-200 w-56 h-80 shadow-md rounded-xl dark:bg-gray-800 dark:border-gray-700 flex flex-col  ">
           
 
-          
-            <img src={image} alt="equipment" className="object-fill h-32 mb-1 w-44 mx-6 my-auto "/>
+        <button  onMouseEnter={() => handleOpen(true)
+      }>
+            <img src={image} alt="equipment" className="object-fill  mb-1 h-32 w-40 mx-6 my-auto "/>
         
           <div className="p-4 my-auto">
-           <h5 className=" font-semibold text-center mb-2 text-2xl border-t-4 dark:text-white">{typeOfBrand}</h5>
+           <h5 className=" font-semibold text-center mb-2 text-2xl  dark:text-white">{typeOfBrand}</h5>
               
            
            
               <h3 className="mb-2 text-center font-normal tracking-tight    dark:text-white">{name}</h3>
             
           </div>
+          </button>
+
            {open &&(
-             <div className=" absolute flex flex-col my-2 bg-white  border-b-2 border-cyan-100 w-56 h-80 shadow-md text-center">
+             
+             <div   onMouseLeave={() => handleOpen(false)
+             }className=" absolute flex flex-col  bg-white  border-b-2 border-cyan-100 w-56 h-80 shadow-md text-center">
             <button
-                 className="mx-5 mb-2 p-2 rounded-xl mt-12 hover:bg-sky-700 hover:text-white "
+                 className="mx-5 mb-2 p-2 rounded-xl mt-12 hover:bg-yellow-300 hover:text-white "
                  
                >
                      
@@ -127,7 +131,7 @@ const handleOpen = () => {
  
                >
               
-              <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-sky-700">
+              <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-yellow-300">
                  <span className="material-icons-outlined text-white ">
                    check
                  </span>
@@ -137,7 +141,7 @@ const handleOpen = () => {
                </button>
              ) : (
                <button
-                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-sky-700 hover:text-white"
+                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-yellow-300 hover:text-white"
                  onClick={(e) => {
                    e.preventDefault();
                    token ? kitHandler(e) : navigate("/login");
@@ -160,7 +164,7 @@ const handleOpen = () => {
                    cursor: "default",
                  }}
                >
-                 <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-sky-700">
+                 <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-yellow-300">
                  <span className="material-icons-outlined text-white ">
                    bookmark
                  </span>
@@ -170,7 +174,7 @@ const handleOpen = () => {
                </button>
              ) : (
                <button
-                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-sky-700"
+                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-yellow-300"
                  onClick={(e) => {
                    e.preventDefault();
                    token ? watchlistHandler(e) : navigate("/login");
@@ -186,7 +190,7 @@ const handleOpen = () => {
                </button>
              )}
              <button
-                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-sky-700 hover:text-white "
+                 className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-yellow-300 hover:text-white "
                  
                >
                  <div className="">
@@ -200,7 +204,7 @@ const handleOpen = () => {
            </div>
            )}
         </div>
-        </button>
+        
     </>
   );
 }

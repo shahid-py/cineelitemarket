@@ -9,14 +9,15 @@ import { Login } from "./pages/index";
 import { ProductDetails } from "./pages/index";
 import { LandingPage } from "./pages/LandingPage";
 import PrivateRoute from "./PrivateRoute"
+import {Packages} from "./pages/Packages"
 function App() {
   return (
     <div>
    
  <Header/>
  <Routes>
- <Route path="/landingpage" element={<LandingPage/>} />
-       <Route path="/" element={<Products />} />
+ <Route path="/" element={<LandingPage/>} />
+       <Route path="/explore" element={<Products />} />
        <Route path="/login" element={<Login/>}/>
        <Route path="/product/:productId" element={<ProductDetails />} />
        <Route path="/watchlist" element={<PrivateRoute/>} >
@@ -26,6 +27,7 @@ function App() {
         <Route path="/kit" element={<Kit/>} />
         </Route>
        <Route path="/signup" element={<Signup/>}/>
+       <Route exact path="/packages" element={<Packages/>}/>
   </Routes>
  
     </div>

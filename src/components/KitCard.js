@@ -66,103 +66,96 @@ export function KitCard({ product }) {
           
         </div>
         </button>
-          <div className=" my-auto text-center">
          
-          
-          
-            <button
-              className="mx-5 p-2"
-              onClick={(e) => removeProductFromKit(e)}
-            >
-              <span className="text-xl  font-medium text-red-500">
-                Remove from Kit
-              </span>
-             
-            </button>
-          
-      
-     
-        </div>
        
         {
           edit &&(
             <>
 
-            <div className=" w-2/5  absolute z-50 flex flex-col flex-grow  bg-white   border border-4 rounded-2xl mx-auto left-0 right-0 shadow-2xl ">
-            <button
-   className="text-2xl font-medium mb-6 mx-auto"
-        onClick={() => {
-          setEditing((e) => !e);
-        }}
-      >
-        Edit Kit Item
-      </button>
-              <div  className="flex flex-row">
-            <img src={image} alt="equipment" className="object-fill h-32 mb-1 w-44  my-auto "/>
-      
-            <div className="p-4 my-auto">
-             <h5 className=" font-semibold  text-center  text-2xl ">{typeOfBrand}</h5>
+            <div className=" w-1/4  absolute z-50 flex flex-col flex-grow  bg-white   border border-4 rounded-2xl mx-auto left-0 right-0 bottom-2 shadow-2xl  ">
+           
+              <div  className="flex flex-col">
+              <div className="p-4 my-auto">
+             <h5 className=" font-semibold  text-center mb-2 text-2xl ">{typeOfBrand}</h5>
                 
              
              
                 <h3 className="mb-2 text-center font-normal tracking-tight    dark:text-white">{name}</h3>
               </div>
+            <img src={image} alt="equipment" className="object-fill px-12 bg-gray-100 mb-1 w-64 rounded-xl mx-auto my-auto "/>
+      
+          
               </div>
  
             
               
-              <ul className="  flex flex-col pl-6 text-xl font-light  text-left    mb-6 mt-2">
-       
-              <li className="mb-2 mr-6">Profile</li>
-              <li className="pb-2 flex flex-row m">Serial no : <EdiText
-        type="text"
-        className="list-inside ml-2 "
-        editButtonClassName="custom-edit-button"
-       value=""
-       editing={editing}
-        onSave={onSave}
-      /> 
-       </li>
-              <li className="pb-2 flex flex-row m">Build Year :
-              <EdiText
-              type="text"
-        className="list-inside ml-2 "
-        editButtonClassName="custom-edit-button"
-       value=""
-       editing={editing}
-        onSave={onSave}
-        />
-       </li>
-              <li className="pb-2 flex flex-row m">Description
-              <EdiText
-              type="text"
-        className="pb-2 flex flex-row m"
-        editButtonClassName="custom-edit-button"
-       value=""
-       editing={editing}
-        onSave={onSave}
-        /></li>
-              <li className="pb-2 flex flex-row m">Image
-              <Upload></Upload></li>
-              <li className="pb-2 flex flex-row m">Cost Price
-              <EdiText
-              type="text"
-        className="list-inside ml-2 "
-        editButtonClassName="custom-edit-button"
-       value=""
-       editing={editing}
-        onSave={onSave}
-        /></li>
-              <li className="pb-2 flex flex-row m">Per day Rate
-              <EdiText
-              type="text"
-        className="list-inside ml-2 "
-        editButtonClassName="custom-edit-button"
-       value=""
-       editing={editing}
-        onSave={onSave}
-        /></li>
-            </ul>
+              <button >
+              
+              <div className=" mb-2 flex  mx-24 rounded-xl border-2 border-black mt-2 hover:bg-yellow-300">
+                 <span className="material-icons-outlined text-black ml-4 text-3xl ">
+                   edit
+                 </span>
+                 <span className="mb-2  text-black font-medium text-base">Edit Details</span>
+                 </div>
+                
+               </button>
+              
+              
+              <button >
+              
+              <div className=" mb-2 flex  mx-24 rounded-xl border-2 border-blue-600 mt-2 hover:bg-yellow-300">
+                 <span className="material-icons-outlined text-blue-600 ml-4 text-3xl ">
+                 calendar_month
+                 </span>
+                 <span className="mb-2  text-blue-600 font-medium text-base">View Schedule</span>
+                 </div>
+                
+               </button>
+              <button >
+              
+              <div className=" mb-2 p-1 flex mx-24 rounded-xl  mt-2 bg-gray-300 hover:bg-yellow-300">
+                 <span className="material-icons-outlined text-white ml-4 text-3xl  ">
+                 visibility
+                 </span>
+                 <span className="mb-2  text-gray-100 font-medium text-m"> Show On Profile</span>
+                 </div>
+                
+               </button>
+              <button >
+              
+              <div className=" mb-2 p-1 flex mx-24 rounded-xl  mt-2 bg-gray-300 hover:bg-yellow-300">
+                 <span className="material-icons-outlined text-white ml-4 text-3xl ">
+                 <span class="material-symbols-outlined">
+                request_quote
+               </span>
+                 </span>
+                 <span className="mb-2  text-gray-100 font-medium text-m"> Add to Job</span>
+                 </div>
+                
+               </button>
+              <button >
+              
+              <div className=" mb-2 p-1 flex mx-24 rounded-xl mt-2  bg-gray-300 hover:bg-yellow-300">
+                 <span className="material-icons-outlined text-white ml-4 text-3xl ">
+                   sell
+                 </span>
+                 <span className="mb-2  text-gray-100 font-medium text-m">Sell Item</span>
+                 </div>
+                
+               </button>
+              <button  >
+              
+              <div className=" mb-2 p-1  flex mx-24 rounded-xl bg-gray-300 mt-2 hover:bg-yellow-300">
+                 <span className="material-icons-outlined ml-4 text-white text-3xl ">
+                   logout
+                 </span>
+                 <span className="mb-2  text-gray-100 font-medium text-m">Mark as Sold</span>
+                 </div>
+
+                 <span  onClick={(e) => removeProductFromKit(e)} className="material-icons-outlined flex-row  ml-4 text-gray-300 text-3xl ">
+                   delete
+                 </span>
+               </button>
            </div>
            <div   onClick={() => handleEdit(false)} className=" fixed  w-full right-0 top-0 h-screen bg-black bg-opacity-50" >
    
