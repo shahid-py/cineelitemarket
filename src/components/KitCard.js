@@ -23,6 +23,12 @@ export function KitCard({ product }) {
     setEdit(!edit);
   };
   
+  
+  const [deleteit, setDelete] = useState(false)
+  const handleDelete = () => {
+    setDelete(!deleteit);
+  };
+  
 
   const removeProductFromKit = async (e) => {
     e.preventDefault();
@@ -72,7 +78,7 @@ export function KitCard({ product }) {
           edit &&(
             <>
 
-            <div className=" w-1/4  absolute z-50 flex flex-col flex-grow  bg-white   border border-4 rounded-2xl mx-auto left-0 right-0 bottom-2 shadow-2xl  ">
+            <div className=" w-1/4  absolute z-40 flex flex-col flex-grow  bg-white   border border-4 rounded-2xl mx-auto left-0 right-0 bottom-2 shadow-2xl  ">
            
               <div  className="flex flex-col">
               <div className="p-4 my-auto">
@@ -152,11 +158,37 @@ export function KitCard({ product }) {
                  <span className="mb-2  text-gray-100 font-medium text-m">Mark as Sold</span>
                  </div>
 
-                 <span  onClick={(e) => removeProductFromKit(e)} className="material-icons-outlined flex-row  ml-4 text-gray-300 text-3xl ">
+                 <span  className="material-icons-outlined flex-row  ml-4 text-gray-300 text-3xl " onClick={() => handleDelete(true)}>
                    delete
                  </span>
                </button>
            </div>
+           {deleteit && (
+             <div className="dialog-content-container"     onClick={() => setDelete(false)}>
+             <section className="dialog-content text-xl  font-medium text-black text-center">
+              
+               <div className="dialog-body mx-12">
+                 <p >You are about to delete this item from your kit</p>
+               </div>
+               <footer className="dialog-footer mx-12">
+                 <p>All details and images will be deleted </p>
+                 <button
+                   className="mt-3"
+                  
+                 >
+                   <div className="  px-4  rounded-xl bg-gray-400 mt-2 hover:bg-yellow-300"  onClick={(e) => removeProductFromKit(e)}>
+                 <span className="material-icons-outlined  text-white text-base ">
+                   delete
+                 </span>
+                 <span className="mb-2  text-gray-100 font-medium text-base">Delete from kit</span>
+                 </div>
+                 </button>
+               </footer>
+             </section>
+           </div>
+              
+           )}
+           
            <div   onClick={() => handleEdit(false)} className=" fixed  w-full right-0 top-0 h-screen bg-black bg-opacity-50" >
    
            </div>
