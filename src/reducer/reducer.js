@@ -17,9 +17,14 @@ export const reducerFunc = (state, action) => {
           ...state,
           watchlist: action.payload,
         };
+      case "INITIALIZE_COMPARE":
+        return {
+          ...state,
+          compare: action.payload,
+        };
   
       case "ADD_TO_KIT":
-        return { ...state, kit: [...state.kit, action.payload] };
+        return { ...state, kit: [ action.payload] };
   
       
         case "REMOVE_FROM_KIT":
@@ -44,6 +49,17 @@ export const reducerFunc = (state, action) => {
           watchlist: state.watchlist.filter(
             (currentWatchlistItem) =>
               currentWatchlistItem._id !== action.payload._id
+          ),
+        };
+      case "ADD_TO_COMPARE":
+        return { ...state, compare: [...state.compare, action.payload] };
+  
+      case "REMOVE_FROM_COMPARE":
+        return {
+          ...state,
+          compare: state.compare.filter(
+            (currentCompareItem) =>
+              currentCompareItem._id !== action.payload._id
           ),
         };
   
@@ -78,6 +94,7 @@ export const reducerFunc = (state, action) => {
           ...state,
           kit: [],
           watchlist: [],
+          compare:[],
           sortBy: null,
           showFastDeliveryOnly: false,
           showInventoryAll: false,

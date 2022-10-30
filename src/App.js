@@ -10,6 +10,7 @@ import { ProductDetails } from "./pages/index";
 import { LandingPage } from "./pages/LandingPage";
 import PrivateRoute from "./PrivateRoute"
 import {Packages} from "./pages/Packages"
+import { Compare } from "./pages/Compare";
 function App() {
   return (
     <div>
@@ -17,7 +18,9 @@ function App() {
  <Header/>
  <Routes>
  <Route path="/" element={<LandingPage/>} />
+       <Route path="/explore" element={<PrivateRoute />} >
        <Route path="/explore" element={<Products />} />
+       </Route>
        <Route path="/login" element={<Login/>}/>
        <Route path="/product/:productId" element={<ProductDetails />} />
        <Route path="/watchlist" element={<PrivateRoute/>} >
@@ -25,6 +28,9 @@ function App() {
         </Route>
         <Route path="/kit" element={<PrivateRoute/>} >
         <Route path="/kit" element={<Kit/>} />
+        </Route>
+        <Route path="/compare" element={<PrivateRoute/>} >
+        <Route path="/compare" element={<Compare/>} />
         </Route>
        <Route path="/signup" element={<Signup/>}/>
        <Route exact path="/packages" element={<Packages/>}/>

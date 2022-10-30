@@ -96,6 +96,7 @@
   animation: animatedialog 0.8s;
 }
 
+  
 @keyframes animatedialog {
   from {
     opacity: 0;

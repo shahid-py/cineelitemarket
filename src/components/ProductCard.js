@@ -8,7 +8,7 @@ import { API_URL } from "../utils/index";
 
 export function ProductCard({ product }) {
   const {
-    state: { kit, watchlist },
+    state: { kit, watchlist,compare },
     dispatch,
   } = useData();
   const { token } = useAuth();
@@ -26,6 +26,7 @@ const handleOpen = () => {
   const { _id, typeOfBrand,  name, image } = product;
 
   const isInKit = kit?.find((kitItem) => kitItem._id === _id);
+  const isInCompare = compare?.find((compareItem) => compareItem._id === _id);
   const isInWatchlist = watchlist?.find(
     (watchlistItem) => watchlistItem._id === _id
   );
@@ -33,10 +34,40 @@ const handleOpen = () => {
   const kitHandler = async (e) => {
     
     if (!isInKit) {
+    try {
+    //     const {
+    //       data: { success },
+    //     } = await axios.post(`${API_URL}/kit`, {
+    //       product: {
+    //         _id,
+          
+    //       },
+    //     });
+    await axios.post(`${API_URL}/kit`, {
+      product: {
+        typeOfBrand,
+        name
+      },
+    });
+
+        // if (success) {
+          dispatch({ type: "ADD_TO_KIT", payload: product });
+          
+        // }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/kit");
+    }
+  };
+  const compareHandler = async (e) => {
+    
+    if (!isInCompare) {
       try {
         const {
           data: { success },
-        } = await axios.post(`${API_URL}/kit`, {
+        } = await axios.post(`${API_URL}/compare`, {
           product: {
             _id,
           
@@ -44,14 +75,14 @@ const handleOpen = () => {
         });
 
         if (success) {
-          dispatch({ type: "ADD_TO_KIT", payload: product });
+          dispatch({ type: "ADD_TO_COMPARE", payload: product });
           
         }
       } catch (error) {
         console.error(error);
       }
     } else {
-      navigate("/kit");
+      navigate("/explore");
     }
   };
 
@@ -106,7 +137,7 @@ const handleOpen = () => {
              <div   onMouseLeave={() => handleOpen(false)
              }className=" absolute flex flex-col  bg-white  border-b-2 border-cyan-100 w-56 h-80 shadow-md text-center">
             <button
-                 className="mx-5 mb-2 p-2 rounded-xl mt-12 hover:bg-yellow-300 hover:text-white "
+                 className="mx-5 mb-2 p-2 rounded-xl mt-4 hover:bg-yellow-300 hover:text-white "
                  
                >
                      
@@ -201,6 +232,40 @@ const handleOpen = () => {
                  </div>
                  
                </button>
+                
+             {isInCompare ? (
+               
+               <button
+               className=""
+               onClick={(e) => compareHandler(e)}
+
+             >
+            
+            <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-yellow-300">
+               <span className="material-icons-outlined text-white ">
+                 compare
+               </span>
+               <span className="mb-2 ml-2 text-white font-medium text-m">Compare</span>
+               </div>
+              
+             </button>
+           ) : (
+             <button
+               className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-yellow-300 hover:text-white"
+               onClick={(e) => {
+                 e.preventDefault();
+                 token ? compareHandler(e) : navigate("/login");
+               }}
+             >
+              <div className="">
+               <span className="material-icons-outlined  ">
+                 compare 
+               </span>
+               <span className="mb-2 text-m font-medium ml-2 ">Compare</span>
+               </div>
+              
+             </button>
+           )}
            </div>
            )}
         </div>

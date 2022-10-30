@@ -10,6 +10,7 @@ export const DataContext = createContext();
   inventory: [],
   kit:[],
   watchlist:[],
+  compare:[],
   sortBy: null,
  sortByTypeOfCategory:[],
   totalPrice: 0,
@@ -58,6 +59,13 @@ export function DataProvider({ children }) {
         } = await axios.get(`${API_URL}/watchlist`);
 
         dispatch({ type: "INITIALIZE_WATCHLIST", payload: watchlist });
+        const {
+          data: { compare },
+        } = await axios.get(`${API_URL}/compare`);
+
+        dispatch({ type: "INITIALIZE_COMPARE", payload: compare });
+
+
       } catch (error) {
         console.error(error);
       }
