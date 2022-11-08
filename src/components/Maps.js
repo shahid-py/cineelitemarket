@@ -5,8 +5,13 @@ import {Map,Marker, GoogleApiWrapper} from 'google-maps-react';
 export class Maps extends Component {
     constructor(props){
         super(props)
-        this.state ={}
-    
+        
+    }
+    componentDidMount(props){
+      // if(props.coordinates.latitude){this.setState({
+      //   coordinates:{lat:props.coordinates.latitude,
+      //   lng: props.coordinates.lng}
+      // })}
     }
     render() {        
   return (

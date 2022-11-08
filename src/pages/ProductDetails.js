@@ -1,15 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VectorMap } from "react-jvectormap";
 import { useParams } from "react-router";
 import { useData } from "../context/DataContext";
 import Maps from "../components/Maps";
-import PlacesAutocomplete from "react-places-autocomplete";
-import {
-  geocodeByAddress,
-  geocodeByPlaceId,
-  getLatLng,
-} from "react-places-autocomplete";
-import Coordinates from "../components/Coordinates";
+import MapComponent from "../components/DisplayMapClass";
+import axios from "axios";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -18,7 +13,9 @@ export function ProductDetails() {
     dispatch,
   } = useData();
   const product = inventory?.find((product) => product._id === productId);
-
+  const [location, setLocation] = useState("");
+  const [maplocation, setMapLocation] = useState([28.78, 77.209]);
+  const [coordinates, setCoordinates] = useState({ lat: 28, lng: 79 });
   const handleClick = (e, countryCode) => {
     console.log(countryCode);
   };
@@ -37,17 +34,37 @@ export function ProductDetails() {
     FR: 0,
     US: 20,
   };
-
-  // const [address,setAddress]= useState()
-  // const [coordinates,setCoordinates]= useState({lat:28.704060,lng:77.102493})
-  // const handelSelect = async value =>{
-  //   const results = await geocodeByAddress(value)
-  //   const ll = await getLatLng(results[0])
-  //   console.log(ll);
-  //   setAddress(value)
-  //   setCoordinates(ll)
-  // }
-
+  useEffect(() => {
+    //  getDiv();/
+    // getCoordinates();
+  }, []);
+  const getCoordinates = async (e) => {
+    e.preventDefault();
+    await axios
+      .get(
+        `http://api.positionstack.com/v1/forward?access_key=949ce4a941a94da71fc85598363231fc&query=${location.City},${location.Country},${location.State}`
+      )
+      .then((e) => {
+        let newCoordinates = {
+          lat: e.data.data[0].latitude,
+          lng: e.data.data[0].longitude,
+        };
+        setCoordinates(newCoordinates);
+        let newMapCoordinates = [];
+        newMapCoordinates.push(
+          e.data.data[0].latitude,
+          e.data.data[0].longitude
+        );
+        // mapCoordinates[1] = props.coordinates.longitude;
+        console.log(newMapCoordinates);
+        setMapLocation(newMapCoordinates);
+      })
+      .catch((e) => console.log(e));
+  };
+  const handleChange = (e) => {
+    setLocation({ ...location, [e.target.name]: e.target.value });
+  };
+  console.log(coordinates);
   return (
     <>
       {product && (
@@ -158,27 +175,39 @@ export function ProductDetails() {
                   Filter By Geography
                 </h2>
                 <div className="space-y-6">
-                  <div className="flex items-center">
-                    <input
-                      type="text"
-                      className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
-                      placeholder="Country"
-                    />
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="text"
-                      className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
-                      placeholder="State"
-                    />
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="number"
-                      className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
-                      placeholder="Pincode"
-                    />
-                  </div>
+                  <form onChange={handleChange} onSubmit={getCoordinates}>
+                    <div className="flex items-center">
+                      <input
+                        name="Country"
+                        type="text"
+                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
+                        placeholder="Country"
+                      />
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        name="State"
+                        type="text"
+                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
+                        placeholder="State"
+                      />
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        name="City"
+                        type="text"
+                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
+                        placeholder="City"
+                      />
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        type="submit"
+                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
+                        value="Submit"
+                      />
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -193,80 +222,9 @@ export function ProductDetails() {
                 top: 1900,
               }}
             >
-               <Maps/>
-              {/* <PlacesAutocomplete
-                value={address}
-                onChange={setAddress}
-                onSelect={handelSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,  
-                  loading,
-                }) => (
-                  <div>
-                    <input
-                      {...getInputProps({
-                        placeholder: "Search Places ...",
-                        className: "location-search-input",
-                      })}
-                    />
-                    <div className="autocomplete-dropdown-container">
-                      {loading && <div>Loading...</div>}
-                      {suggestions.map((suggestion) => {
-                        const className = suggestion.active
-                          ? "suggestion-item--active"
-                          : "suggestion-item";
-                        // inline style for demonstration purpose
-                        const style = suggestion.active
-                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                          : { backgroundColor: "#ffffff", cursor: "pointer" };
-                        return (
-                          <div
-                            {...getSuggestionItemProps(suggestion, {
-                              className,
-                              style,
-                            })}
-                          >
-                            <span>{suggestion.description}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </PlacesAutocomplete> */}
-              {/* <VectorMap
-                map={"world_mill"}
-                backgroundColor="transparent" //change it to ocean blue: #0077be
-                zoomOnScroll={false}
-                containerStyle={{
-                  width: "100%",
-                  height: "100%",
-                }}
-                onRegionClick={handleClick} //gets the country code
-                containerClassName="map"
-                regionStyle={{
-                  initial: {
-                    fill: "#e4e4e4",
-                    "fill-opacity": 0.9,
-                    stroke: "none",
-                    "stroke-width": 0,
-                    "stroke-opacity": 0,
-                  },
-                  hover: {
-                    "fill-opacity": 0.8,
-                    cursor: "pointer",
-                  },
-                  selected: {
-                    fill: "#2938bc", //color for the clicked country
-                  },
-                  selectedHover: {},
-                }}
-                regionsSelectable={true}
-              
-              /> */}
+              <div id="aamp"></div>
+              {/* <Maps coordinates={coordinates}/> */}
+              <MapComponent coordinates={coordinates} />
             </div>
           </div>
           <div className=" grid grid-cols-2  ">
@@ -304,12 +262,3 @@ export function ProductDetails() {
     </>
   );
 }
-
-// function Maps(){
-//   return <GoogleMap
-//   zoom={10}
-//   center={{lat:44,lng:-80}}
-//   style={{width:"100%",height:"100%"}}>
-
-//   </GoogleMap>
-// }
