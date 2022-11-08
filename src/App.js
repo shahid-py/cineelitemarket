@@ -11,6 +11,7 @@ import { LandingPage } from "./pages/LandingPage";
 import PrivateRoute from "./PrivateRoute"
 import {Packages} from "./pages/Packages"
 import { Compare } from "./pages/Compare";
+import { History } from "./pages/History";
 function App() {
   return (
     <div>
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route path="/compare" element={<PrivateRoute/>} >
         <Route path="/compare" element={<Compare/>} />
+        </Route>
+        <Route path="/history" element={<PrivateRoute/>} >
+        <Route path="/history" element={<History/>} />
         </Route>
        <Route path="/signup" element={<Signup/>}/>
        <Route exact path="/packages" element={<Packages/>}/>

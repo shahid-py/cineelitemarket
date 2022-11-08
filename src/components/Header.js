@@ -89,7 +89,7 @@ export function Header() {
               Packages
             </button>
           </Link>
-          <Link to="/watchlist">
+          <Link to="/history">
             <button className="">
               History
             </button>

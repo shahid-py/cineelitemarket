@@ -59,7 +59,7 @@ export function Login() {
               required
             />
             <button className="btn btn-primary btn-login" type="submit">
-              {token ? "Logout" : "Login"}
+              Login
             </button>
           </form>
           <div>

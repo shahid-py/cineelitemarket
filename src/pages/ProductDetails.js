@@ -1,7 +1,10 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { VectorMap } from "react-jvectormap";
 import { useParams } from "react-router";
 import { useData } from "../context/DataContext";
+import { SellCard } from "../components/SellCard";
+import { API_URL } from "../utils";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -14,6 +17,25 @@ export function ProductDetails() {
   const handleClick = (e, countryCode) => {
     console.log(countryCode);
   };
+  const [selling, setSelling] = useState([]);
+  const getKitDataAgain = async() =>{
+    const userKitData =  await axios.get(`${API_URL}/kit`);
+    console.log(userKitData);
+    if(userKitData){
+     return userKitData.data.products;
+    }    
+   }
+   const getFilterData = async()=>{
+    const currentKitData = await getKitDataAgain();
+  
+    const currentSellingData = currentKitData.filter(e=>e.SellStatus=="Selling");
+    setSelling(currentSellingData);
+    
+    }
+   
+   useEffect(()=>{
+     getFilterData()
+   },[]);
 
   const [sale, setSale] = useState(false)
 const handleSale = () => {
@@ -36,7 +58,8 @@ const mapData = {
   
       {product && (
         <>
-          <div className="  mt-6 text-gray-700 bg-gray-100 border border-2 body-font mx-16 border-0 rounded-2xl overflow-hidden ">
+       
+          <div className=" flex flex-cols  mt-6 text-gray-700 bg-gray-100 border border-2 body-font mx-16 border-0 rounded-2xl overflow-hidden ">
             <div className="container px-5 py-15 mx-auto">
               <div className="lg:w-full mx-auto flex flex-wrap">
                 <img
@@ -58,7 +81,18 @@ const mapData = {
                 </div>
               </div>
             </div>
-          </div>
+         
+          <div className= "mt-6 mx-10 bg-white border mb-12 border-2 body-font  rounded-2xl overflow-hidden " style={{ width: 500, height: 300 }}>
+                <div className="  px-5  pb-6 w-1/2  bg-white ">
+              <div className="pt-6" id="filter-section-mobile-1">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900  text-center sm:text-xl mb-6">
+                  Manufacturer Info
+                </h2>
+                </div>
+                </div>
+                </div>
+                </div>
+                
           <div class="bg-white">
             <div class=" mx-12 grid  grid-cols-1  items-center border border-2 rounded-2xl mt-12  py-24 px-4 sm:px-6 sm:py-32  lg:grid-cols-2 lg:px-8">
               <div>
@@ -77,6 +111,7 @@ const mapData = {
                   ))}
                 </dl>
               </div>
+              
 
               <div class="items-center    sm:px-6  ">
                 <div>
@@ -172,8 +207,8 @@ const mapData = {
               />
             </div>
           </div>
-          <div className=" grid grid-cols-2  ">
-          <div className="mt-6 mx-12 bg-white border mb-12 border-2 body-font  rounded-2xl overflow-hidden ">
+          
+          <div className="mt-6 mx-12 bg-white border mb-12 border-2 body-font h-96 rounded-2xl overflow-hidden ">
             
             <div className="    pb-6 pl-6 bg-white ">
 
@@ -183,29 +218,31 @@ const mapData = {
              <div>
                 {sale &&
                 (
+<>
+ <div className="w-full grid grid-cols-2 gap-2">
 
-               <ul className="flex flex-col bg-gray-100 pb-2 rounded-lg shadow-xl px-6">
-              <li className="" >{product.name}</li>
-              <li>Seller :</li>
-              <li>Location :</li>
-               </ul>
+ {selling.length ? (
+     <>
+  
 
+         {selling.map((kit) => (
+           <SellCard product={kit} key={kit._id} />
+         ))}
+       
+     </>
+   ) : (
+    <></>
+   )}
+      </div>
+      </>
                 )
                 
                 }
                 </div>
                 </div>
                 </div>
-                <div className= "mt-6 mx-10 grid grid-cols-2 bg-white border mb-12 border-2 body-font  rounded-2xl overflow-hidden " style={{ width: 500, height: 300 }}>
-                <div className="  px-5  pb-6 w-1/2  bg-white ">
-              <div className="pt-6" id="filter-section-mobile-1">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900  text-center sm:text-xl mb-6">
-                  Manufacturer Info
-                </h2>
-                </div>
-                </div>
-                </div>
-                </div>
+              
+                
         </>
       )}
     </>
