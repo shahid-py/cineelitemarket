@@ -20,6 +20,7 @@ const PacBox = ({setShowMyModal,pac}) => {
         />
       </svg>
       </div>
+      
       <AddPackage pac={pac}/>
     </div>
   )
