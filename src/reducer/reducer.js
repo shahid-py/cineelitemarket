@@ -62,6 +62,17 @@ export const reducerFunc = (state, action) => {
               currentCompareItem._id !== action.payload._id
           ),
         };
+      case "ADD_TO_HISTORY":
+        return { ...state, history: [ action.payload] };
+  
+      case "REMOVE_FROM_HISTORY":
+        return {
+          ...state,
+          history: state.history.filter(
+            (currentHistoryItem) =>
+              currentHistoryItem._id !== action.payload._id
+          ),
+        };
   
       case "SORT":
         return { ...state, sortBy: action.payload };
@@ -95,6 +106,7 @@ export const reducerFunc = (state, action) => {
           kit: [],
           watchlist: [],
           compare:[],
+          history:[],
           sortBy: null,
           showFastDeliveryOnly: false,
           showInventoryAll: false,

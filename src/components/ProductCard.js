@@ -6,9 +6,9 @@ import { useData } from "../context/DataContext";
 import { API_URL } from "../utils/index";
 
 
-export function ProductCard({ product }) {
+export function ProductCard({ product  }) {
   const {
-    state: { kit, watchlist,compare },
+    state: { kit, watchlist,compare ,history},
     dispatch,
   } = useData();
   const { token } = useAuth();
@@ -22,11 +22,12 @@ const handleOpen = () => {
 };
   const navigate = useNavigate();
 
-
-  const { _id, typeOfBrand,  name, image } = product;
+  
+  const { _id, typeOfBrand,  name, image,description } = product;
 
   const isInKit = kit?.find((kitItem) => kitItem._id === _id);
   const isInCompare = compare?.find((compareItem) => compareItem._id === _id);
+  const isInHistory = history?.find((historyItem) => historyItem._id === _id);
   const isInWatchlist = watchlist?.find(
     (watchlistItem) => watchlistItem._id === _id
   );
@@ -45,8 +46,11 @@ const handleOpen = () => {
     //     });
     await axios.post(`${API_URL}/kit`, {
       product: {
+        _id,
         typeOfBrand,
-        name
+        name,
+        image,
+        
       },
     });
 
@@ -85,6 +89,45 @@ const handleOpen = () => {
       navigate("/explore");
     }
   };
+  const historyHandler = async (e) => {
+    
+    if (!isInHistory) {
+      try {
+        // const {
+        //   data: { success },
+        // } = await axios.post(`${API_URL}/history`, {
+        //   product: {
+        //     _id,
+          
+        //   },
+        // });
+        await axios.post(`${API_URL}/history`, {
+          product: {
+            _id,
+         description,
+            name,
+            
+            
+            
+          },
+        });
+
+        //if (success) {
+          dispatch({ type: "ADD_TO_HISTORY", payload: product });
+          
+       // }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/explore");
+    }
+  };
+function KitFunction(){
+  historyHandler();
+  kitHandler();
+}
+
 
   const watchlistHandler = async (e) => {
     e.preventDefault();
@@ -109,27 +152,31 @@ const handleOpen = () => {
       navigate("/watchlist");
     }
   };
+  function watchlistFunction(){
+    historyHandler();
+    watchlistHandler();
+  }
 
   return (
     <>
 
      
         
-        <div className="bg-white border border-4 border-gray-200 w-56 h-80 shadow-md rounded-xl dark:bg-gray-800 dark:border-gray-700 flex flex-col  ">
+        <div className="bg-white border border1 border-gray-200 w-56 h-56 shadow-sm rounded dark:bg-gray-800 dark:border-gray-700 flex flex-col  ">
           
 
         <button  onMouseEnter={() => handleOpen(true)
-      }>
-            <img src={image} alt="equipment" className="object-fill  mb-1 h-32 w-40 mx-6 my-auto "/>
+      }><div className="bg-gray-100 mt-2 mx-2"> <img src={image} alt="equipment" className="  w-40 mx-auto  h-32 w-full p-3  "/></div>
+           
         
-          <div className="p-4 my-auto">
+        
            <h5 className=" font-semibold text-center mb-2 text-2xl  dark:text-white">{typeOfBrand}</h5>
               
            
            
               <h3 className="mb-2 text-center font-normal tracking-tight    dark:text-white">{name}</h3>
-            
-          </div>
+             
+      
           </button>
 
            {open &&(
@@ -158,7 +205,8 @@ const handleOpen = () => {
                
                  <button
                  className=""
-                 onClick={(e) => kitHandler(e)}
+                 onClick={(e) => KitFunction(e) }
+                
  
                >
               
@@ -175,7 +223,7 @@ const handleOpen = () => {
                  className="mx-5 mb-2 p-2 rounded-xl mt-2 hover:bg-yellow-300 hover:text-white"
                  onClick={(e) => {
                    e.preventDefault();
-                   token ? kitHandler(e) : navigate("/login");
+                   token ? KitFunction(e) : navigate("/login");
                  }}
                >
                 <div className="">
@@ -189,11 +237,7 @@ const handleOpen = () => {
              )}
              {isInWatchlist ? (
                <button
-                 className=""
-                 disabled={true}
-                 style={{
-                   cursor: "default",
-                 }}
+              
                >
                  <div className="mx-5 mb-2 p-2 rounded-xl mt-2 bg-yellow-300">
                  <span className="material-icons-outlined text-white ">
@@ -210,6 +254,7 @@ const handleOpen = () => {
                    e.preventDefault();
                    token ? watchlistHandler(e) : navigate("/login");
                  }}
+                 onSelect={(e) => historyHandler(e) }
                >
                  <div className="">
                  <span className="material-icons-outlined md-light  ">
