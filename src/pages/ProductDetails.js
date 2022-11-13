@@ -129,10 +129,10 @@ export function ProductDetails() {
             </div>
           </div>
           <div className="mt-6 mx-12 grid grid-cols-3 bg-white border mb-12 border-2 body-font  rounded-2xl overflow-hidden ">
-            <div className="  px-5 px-16 pb-6 w-1/3 p-5 bg-white ">
+            <div className="ml-12  px-5 px-16 pb-6 w-1/3 p-5 bg-white ">
               <div className="pt-6" id="filter-section-mobile-1">
                 <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl mb-6">
-                  show Availablity
+                  Show Availablity
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center">
@@ -169,7 +169,7 @@ export function ProductDetails() {
                 </div>
               </div>
             </div>
-            <div className="  px-5 px-16 pb-6 w-1/3 p-5 bg-white mr-10">
+            <div className=" mr-10 px-5 px-16 pb-6 w-1/3 p-5 bg-white mr-10">
               <div className="pt-6" id="filter-section-mobile-1">
                 <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl mb-6">
                   Filter By Geography
@@ -180,7 +180,7 @@ export function ProductDetails() {
                       <input
                         name="Country"
                         type="text"
-                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
+                        className="mb-2 h-4 w-15 p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 block"
                         placeholder="Country"
                       />
                     </div>
@@ -188,7 +188,7 @@ export function ProductDetails() {
                       <input
                         name="State"
                         type="text"
-                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
+                        className="mb-2 h-4 w-15 p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 block"
                         placeholder="State"
                       />
                     </div>
@@ -196,16 +196,17 @@ export function ProductDetails() {
                       <input
                         name="City"
                         type="text"
-                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
+                        className="mb-2 h-4 w-15 p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 block"
                         placeholder="City"
                       />
                     </div>
                     <div className="flex items-center">
-                      <input
-                        type="submit"
-                        className="h-4 w-13 p-2 border border-gray-300  focus:ring-indigo-500"
-                        value="Submit"
-                      />
+                      <button
+                       type="Submit"
+                       
+                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full">
+                       Go
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -219,7 +220,7 @@ export function ProductDetails() {
                 height: 270,
                 position: "absolute",
                 left: 700,
-                top: 1900,
+                top: 1890,
               }}
             >
               <div id="aamp"></div>
@@ -245,15 +246,15 @@ export function ProductDetails() {
               </div>
             </div>
             <div
-              className="mt-6 mx-10 grid grid-cols-2 bg-white border mb-12 border-2 body-font  rounded-2xl overflow-hidden "
+              className="mt-6 mx-10 bg-white border mb-12 border-2 body-font  rounded-2xl overflow-hidden "
               style={{ width: 500, height: 300 }}
             >
-              <div className="  px-5  pb-6 w-1/2  bg-white ">
+              
                 <div className="pt-6" id="filter-section-mobile-1">
-                  <h2 class="text-3xl font-bold tracking-tight text-gray-900  text-center sm:text-xl mb-6">
+                  <h2 class="text-3xl font-bold tracking-tight text-gray-900  text-center sm:text-xl mb-6 text-center">
                     Manufacturer Info
                   </h2>
-                </div>
+
               </div>
             </div>
           </div>
