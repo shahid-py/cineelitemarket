@@ -6,7 +6,10 @@ import { API_URL } from "../utils";
 export function History ()
 {
     const {
+      state: {
+        history,
       
+      },
        
         isLoading
       } = useData();

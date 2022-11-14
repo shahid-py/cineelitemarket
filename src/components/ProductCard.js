@@ -93,14 +93,14 @@ const handleOpen = () => {
     
     if (!isInHistory) {
       try {
-        // const {
-        //   data: { success },
-        // } = await axios.post(`${API_URL}/history`, {
-        //   product: {
-        //     _id,
+        const {
+          data: { success },
+        } = await axios.post(`${API_URL}/history`, {
+          product: {
+            _id,
           
-        //   },
-        // });
+          },
+        });
         await axios.post(`${API_URL}/history`, {
           product: {
             _id,
@@ -112,10 +112,10 @@ const handleOpen = () => {
           },
         });
 
-        //if (success) {
+        if (success) {
           dispatch({ type: "ADD_TO_HISTORY", payload: product });
           
-       // }
+        }
       } catch (error) {
         console.error(error);
       }

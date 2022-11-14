@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { VectorMap } from "react-jvectormap";
 import { useParams } from "react-router";
 import { useData } from "../context/DataContext";
+import { API_URL } from "../utils";
+import {SellCard} from "../components/SellCard"
 import Maps from "../components/Maps";
 import MapComponent from "../components/DisplayMapClass";
 import axios from "axios";
@@ -34,6 +36,25 @@ export function ProductDetails() {
     FR: 0,
     US: 20,
   };
+  const [selling, setSelling] = useState([]);
+  const getKitDataAgain = async() =>{
+    const userKitData =  await axios.get(`${API_URL}/kit`);
+    console.log(userKitData);
+    if(userKitData){
+     return userKitData.data.products;
+    }    
+   }
+   const getFilterData = async()=>{
+    const currentKitData = await getKitDataAgain();
+
+    const currentSellingData = currentKitData.filter(e=>e.SellStatus=="Selling");
+    setSelling(currentSellingData);
+
+    }
+
+   useEffect(()=>{
+     getFilterData()
+   },[]);
   useEffect(() => {
     //  getDiv();/
     // getCoordinates();
@@ -42,7 +63,7 @@ export function ProductDetails() {
     e.preventDefault();
     await axios
       .get(
-        `http://api.positionstack.com/v1/forward?access_key=949ce4a941a94da71fc85598363231fc&query=${location.City},${location.Country},${location.State}`
+        `http://api.positionstack.com/v1/forward?access_key=110d84bd7c301c60f6ae030f965d8c44&query=${location.City},${location.Country},${location.State}`
       )
       .then((e) => {
         let newCoordinates = {
@@ -234,13 +255,28 @@ export function ProductDetails() {
                   Available
                 </h2>
                 <div>
-                  {sale && (
-                    <ul className="flex flex-col bg-gray-100 pb-2 rounded-lg shadow-xl px-6">
-                      <li className="">{product.name}</li>
-                      <li>Seller :</li>
-                      <li>Location :</li>
-                    </ul>
-                  )}
+                {sale &&
+                (
+<>
+ <div className="w-full grid grid-cols-2 gap-2">
+
+ {selling.length ? (
+     <>
+
+
+         {selling.map((kit) => (
+           <SellCard product={kit} key={kit._id} />
+         ))}
+
+     </>
+   ) : (
+    <></>
+   )}
+      </div>
+      </>
+                )
+
+                }
                 </div>
               </div>
             </div>

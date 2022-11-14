@@ -63,7 +63,7 @@ export const reducerFunc = (state, action) => {
           ),
         };
       case "ADD_TO_HISTORY":
-        return { ...state, history: [ action.payload] };
+        return { ...state, history: [...state.history, action.payload] };
   
       case "REMOVE_FROM_HISTORY":
         return {

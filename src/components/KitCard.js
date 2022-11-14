@@ -11,10 +11,10 @@ import { useNavigate } from "react-router-dom";
 export function KitCard({ product }) {
   const navigate = useNavigate();
   const {
-  
+    state: { kit},
     dispatch
   } = useData();
-
+  const isInKit = kit;
   const { _id, Company, Model, Images ,Imageexist  ,Description , CPrice ,Build , Daily, Weekly ,Monthly,SPrice , Condition, Serial } = product;
   // console.log(product.Images, product.Description);
   const [style, setStyle] = useState("bg-red-400   rounded-xl border border-1 border-cyan-100 w-56 h-80 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col ")
@@ -44,18 +44,40 @@ export function KitCard({ product }) {
       // setProfilePhoto()
     };
   }
-  const handleSubmit=async(e)=>{
-    e.preventDefault();
-    const thisProd = {...productDetails, ["Images"]:prodImages}
-    console.log(thisProd)
-    await axios.post(`${API_URL}/kit/updateKit`, thisProd);
+
   
-  }
+  const handleSubmit=async(e)=>{
+if(typeof console !== 'undefined'){
+    try {
+      e.preventDefault()
+      const thisProd = {...productDetails, ["Images"]:prodImages}
+      console.log(thisProd)
+      await axios.post(`${API_URL}/kit/updateKit`, thisProd);
+
+        
+          dispatch({ type: "ADD_TO_KIT", payload: product });
+        
+          
+        
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/kit");
+    }
+    
+    }
+  
+
+    
+  
+  
   const handleSelling=async(e)=>{
     e.preventDefault();
     const thisProduct = {...productDetails, ["Images"]:prodImages}
     console.log(thisProduct)
     await axios.post(`${API_URL}/kit/sellKit`, thisProduct);
+ 
   
   }
   const getStyle=()=>{
@@ -83,6 +105,7 @@ export function KitCard({ product }) {
   };
   
 
+
   const removeProductFromKit = async (e) => {
     e.preventDefault();
     try {
@@ -90,9 +113,9 @@ export function KitCard({ product }) {
         data: { success },
       } = await axios.delete(`${API_URL}/kit/${_id}`);
 
-      // if (success) {
-      //   dispatch({ type: "REMOVE_FROM_KIT", payload: product });
-      // }
+       if (success) {
+         dispatch({ type: "REMOVE_FROM_KIT", payload: product });
+       }
     } catch (error) {
       console.error(error);
     }
@@ -106,9 +129,10 @@ export function KitCard({ product }) {
   
   
       <div  
-       className={style} onClick={() => handleEdit(true)} >
+       className={style}  >
       
       <button 
+      onClick={() => handleEdit(true)}
       >
 
         
@@ -249,7 +273,7 @@ sell
                </button>
            </div>
            {deleteit && (
-             <div className="dialog-content-container"     onClick={() => setDelete(false)}>
+             <div className="dialog-content-container"  onClick={() => handleDelete(false)}   >
              <section className="dialog-content text-xl  font-medium text-black text-center">
               
                <div className="dialog-body mx-12">
@@ -441,153 +465,3 @@ sell
  
   );
 }
-
-//         {update && (
-//           <>
-//         <div className=" w-2/6 h-fit absolute z-50 flex flex-col bg-white border-4 rounded-2xl mx-auto left-0 right-0 bottom-2 shadow-2xl">
-//           <div className="mt-4 w-full mb-6 flex flex-col justify-around items-center">
-//             <p className="font-bold mb-3 text-3xl">{Company}</p>
-//             <p className="font-bold text-xl">{Model}</p>
-//           </div>
-//           <div className=" w-full flex flex-col justify-center items-center">
-//             <div className=" w-full  flex flex-col">
-//               <div className=" flex flex-row   mb-4">
-//               <span className="mb-2 mr-12 ml-12 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Serial #</span>
-//             <input type="text"  onChange={handleChange} name="Serial" placeholder="Serial" className="w-72 h-6  border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-//               </div>
-//               <div className=" flex flex-row   mb-4">
-//               <span  className="mb-2 mr-12 ml-12 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Description</span>
-//             <input type="text" onChange={handleChange} name="Desc" className="w-72 h-16 mr-12 text-left border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-//               </div>
-//               </div>
-
-//             <div className=" w-full flex">
-//               <div className=" flex flex-row   ">
-                
-//               <span className="mb-2 ml-12 mr-6 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Cost Price</span>
-//             <input type="text" onChange={handleChange} name="CP" placeholder="Serial" className="w-24 h-6 mr-12 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
-//               </div>
-//               <div className=" flex flex-row   mb-4">
-                
-//                 <span className="mb-2  mr-6 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Build Year</span>
-//               <input type="text" onChange={handleChange} name="year" placeholder="Serial" className="w-24 h-6  border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
-//                 </div>
-//             </div>
-//           </div>
-//           <div className="h-2/6 gap-3 mb-3 w-full flex justify-center items-center flex-wrap">
-//           
-//         <input   id="photo"
-//                         className="document"
-//                         onChange={handleUploadImages}
-//                         accept="image/*"
-//                         type="file"
-//                         name="image1" />
-//     
-//           
-//         <input   id="photo"
-//                         className="document"
-//                         onChange={handleUploadImages}
-//                         accept="image/*"
-//                         type="file"
-//                         name="image2"/>
-//     
-//           
-//         <input   id="photo"
-//                         className="document"
-//                         onChange={handleUploadImages}
-//                         accept="image/*"
-//                         type="file"
-//                         name="image3" />
-//     
-//        
-//         <input   id="photo"
-//                         className="document"
-//                         onChange={handleUploadImages}
-//                         accept="image/*"
-//                         type="file"
-//                         name="image4"/>
-//     
-//          
-//         <input   id="photo"
-//                         className="document"
-//                         onChange={handleUploadImages}
-//                         accept="image/*"
-//                         type="file"
-//                         name="image5"/>
-//    
-//         
-//         <input   id="photo"
-//                         className="document"
-//                         onChange={handleUploadImages}
-//                         accept="image/*"
-//                         type="file"
-//                         name="image6"/>
-//     
-//           </div>
-//           <div className="h-1/6 w-full flex flex-col">
-//             <div className=" w-full flex flex-col">
-//             <div className="  border-b-2 mb-4 ml-16 mr-16  flex flex-col">
-//               <p className="text-center text-base text-gray-400">Hire Rates</p>
-//             </div>
-//             <div className="h-1/2 w-full flex ">
-//             <div className=" h-full flex ">
-//             <span className="mb-2 ml-12 mr-4 text-base font-medium text-gray-900 dark:text-gray-300">Daily</span>
-//             <input type="text" onChange={handleChange} name="day" placeholder="Serial" className="w-16 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
-              
-//             </div>
-            
-//             <div className=" h-full flex ">
-//             <span className="mb-2 mr-4 text-base font-medium text-gray-900 dark:text-gray-300">Weekly</span>
-//             <input type="text"  onChange={handleChange} name="week" placeholder="Serial" className="w-16 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
-              
-//             </div>
-            
-//             <div className=" h-full flex ">
-//             <span className="mb-2 mr-4 text-sm text-base font-medium text-gray-900 dark:text-gray-300">Monthly</span>
-//             <input type="text" onChange={handleChange} name="month" placeholder="Serial" className=" w-16 h-6  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
-              
-//             </div>
-            
-//             </div>
-//             <div className="  border-b-2 mb-4 ml-16 mr-16  flex flex-col">
-//               <p className="text-center text-base text-gray-400">Sale Details</p>
-//             </div>
-//             <div className="h-1/2 w-full flex  mb-4">
-//             <div className=" h-full flex ">
-//             <span className="mb-2 ml-12 mr-4 text-base font-medium text-gray-900 dark:text-gray-300">Price</span>
-//             <input type="text" onChange={handleChange}  name="price"  className="w-16 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
-              
-//             </div>
-            
-//             <div className=" h-full flex ">
-//             <span  className="mb-2 mr-4 text-base font-medium text-gray-900 dark:text-gray-300">Condition</span>
-//             <input type="text" onChange={handleChange}  name="condition"  className="w-44 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
-              
-//             </div>
-          
-            
-           
-            
-//             </div>
-//             <div className=" h-full flex ">
-  
-//   <button  onSubmit={handleSubmit} className="text-center">Submit</button>
-// </div>
-           
-            
-//             </div>
-//           </div>
-//           </div>
-//           <div   onClick={() => handleUpdate(false)} className=" fixed  w-full right-0 top-0 h-screen bg-gray-500 bg-opacity-50" >
-   
-//    </div>
-//    </>
-//           )}
-       
-//       </div>
-    
-   
-//   </>
- 
-//   );
-// }

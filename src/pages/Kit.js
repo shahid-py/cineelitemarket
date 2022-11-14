@@ -10,7 +10,7 @@ import axios from "axios";
 export function Kit() {
   const {
     state: {
-      
+      kit,
       inventory,
       sortBy,
       sortByTypeOfBrand,
@@ -40,19 +40,25 @@ export function Kit() {
      return userKitData.data.products;
     }    
    }
+
    const getFiltData = async()=>{
     const currentKitData = await getKitData();
     const currentData = currentKitData.filter(e=>e.Status=="Incomplete");
-    setIncomplete(currentData);
+    setIncomplete(...incomplete,currentData);
     const currentAvailableData = currentKitData.filter(e=>e.Status=="Available");
-    setAvailable(currentAvailableData);
+    setAvailable(...available,currentAvailableData);
     const currentSellingData = currentKitData.filter(e=>e.SellStatus=="Selling");
-    setSelling(currentSellingData);
+ 
+    setSelling(...selling,currentSellingData );
+    
     
     }
    
    useEffect(()=>{
-     getFiltData()
+     getFiltData();
+  
+   
+
    },[]);
    
   

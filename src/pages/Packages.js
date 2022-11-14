@@ -1,6 +1,6 @@
 import Modal from "../components/Modal";
 import { useState } from "react";
-import AddPackage from "../components/AddPackage";
+
 import PacBox from "../components/PacBox";
 
 export function Packages() {
