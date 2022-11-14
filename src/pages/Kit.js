@@ -9,13 +9,7 @@ import axios from "axios";
 
 export function Kit() {
   const {
-    state: {
-      kit,
-      inventory,
-      sortBy,
-      sortByTypeOfBrand,
-      sortByTypeOfCategory
-    },
+  
     dispatch,
     isLoading,
   } = useData();
@@ -33,6 +27,7 @@ export function Kit() {
   const handleBrand = () => {
     setBrand(!brand);
   };
+ 
   const getKitData = async() =>{
     const userKitData =  await axios.get(`${API_URL}/kit`);
     console.log(userKitData);
@@ -40,75 +35,33 @@ export function Kit() {
      return userKitData.data.products;
     }    
    }
-
-   const getFiltData = async()=>{
-    const currentKitData = await getKitData();
-    const currentData = currentKitData.filter(e=>e.Status=="Incomplete");
-    setIncomplete(...incomplete,currentData);
-    const currentAvailableData = currentKitData.filter(e=>e.Status=="Available");
-    setAvailable(...available,currentAvailableData);
-    const currentSellingData = currentKitData.filter(e=>e.SellStatus=="Selling");
  
-    setSelling(...selling,currentSellingData );
-    
-    
-    }
    
    useEffect(()=>{
+   
+     const getFiltData = async()=>{
+      const currentKitData = await getKitData();
+      const currentData = currentKitData.filter(e=>e.Status==="Incomplete");
+      setIncomplete(currentData);
+      const currentAvailableData = currentKitData.filter(e=>e.Status==="Available");
+      setAvailable(currentAvailableData);
+      const currentSellingData = currentKitData.filter(e=>e.SellStatus==="Selling");
+   
+      setSelling(currentSellingData );
+      
+      
+      }
      getFiltData();
   
    
 
    },[]);
    
+
+
+
   
-  const getSortedData = (productList, sortBy) => {
-    if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
-      return productList.sort((a, b) => b["price"] - a["price"]);
-    }
 
-    if (sortBy && sortBy === "PRICE_LOW_TO_HIGH") {
-      return productList.sort((a, b) => a["price"] - b["price"]);
-    }
-
-    return productList;
-  };
-
-  const getFilteredData = (
-    productList,
-   
-  ) => {
-    return productList
-      
-    .filter((kit) =>
-    sortByTypeOfCategory.length
-      ? sortByTypeOfCategory.includes(kit.category)
-        ? kit
-        : false
-      : kit
-  )
-      .filter((kit )=>
-        sortByTypeOfBrand.length
-          ? sortByTypeOfBrand.includes(kit.typeOfBrand)
-            ? kit
-            : false
-          : kit
-      );
-  };
-  const sortedData = getSortedData(inventory, sortBy);
-  const filteredData = getFilteredData(sortedData, {
-
-   
-  });
-
-  if(isLoading) {
-    return(
-      <div className="spinner">
-        <div></div>
-        <div></div>
-      </div>
-    )
-  }
     
   
      
@@ -276,37 +229,44 @@ info
      
       <div className="grid  lg:col-span-3 xl:col-span-3 col-span-4  sm:grid-cols-2   md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 grow  place-items-center gap-6   mt-24  ">
 
-       {incomplete.length ? (
-      <>
-   
-
-          {incomplete.map((kit) => (
-            <KitCard product={kit} key={kit._id} />
-          ))}
-        
-      </>
-    ) : (
-      <></>
-    )} 
+      {isLoading ? (
+          <div className="spinner">
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          <>
+            {incomplete.map((product) => (
+              <KitCard
+                product={product}
+                key={product._id}
+                
+              />
+            ))}
+          </>
+        )}
   </div>
   
   <div className="text-2xl font-medium    pr-16 relative  left-96  underline underline-offset-8 decoration-gray-400  ">Available</div>
   <div className="grid-rows-auto grid  lg:col-span-3 xl:col-span-3 col-span-4  sm:grid-cols-2 place-items-center  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  gap-6   mt-16 mb-16   ">
 
-  {available.length ? (
-      <>
-   
-
-          {available.map((kit) => (
-            <KitCard product={kit} key={kit._id} />
-          ))}
-        
-      </>
-    ) : (
-     <></>
-    )}
-       </div>
-
+  {isLoading ? (
+          <div className="spinner">
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          <>
+            {available.map((product) => (
+              <KitCard
+                product={product}
+                key={product._id}
+                
+              />
+            ))}
+          </>
+        )}
+        </div>
        
     </div>
     

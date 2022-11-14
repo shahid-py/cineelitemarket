@@ -24,7 +24,7 @@ export const reducerFunc = (state, action) => {
         };
   
       case "ADD_TO_KIT":
-        return { ...state, kit: [ action.payload] };
+        return { ...state, kit: [  action.payload] };
   
       
         case "REMOVE_FROM_KIT":
