@@ -323,11 +323,11 @@ sell
           <div className=" w-full  flex flex-col">
               <div className=" flex flex-row   mb-4">
               <span className="mb-2 mr-12 ml-12 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Serial #</span>
-            <input type="text"  onChange={handleChange} name="Serial" placeholder={Serial}  className="w-72 h-6  border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></input>
+            <input type="text"  onChange={handleChange} name="Serial" placeholder={Serial}  className="w-72 h-6  border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></input>
               </div>
               <div className=" flex flex-row   mb-4">
               <span  className="mb-2 mr-12 ml-12 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Description</span>
-            <input type="text" onChange={handleChange} name="Desc"  placeholder={Description}  className="w-72 h-16 mr-12 text-left border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></input>
+            <input type="text" onChange={handleChange} name="Desc"  placeholder={Description}  className="w-72 h-16 mr-12 text-left border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"required ></input>
               </div>
               </div>
           
@@ -337,12 +337,12 @@ sell
               <div className=" flex flex-row   ">
                 
               <span className="mb-2 ml-12 mr-6 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Cost Price</span>
-            <input type="text" onChange={handleChange} name="CP" placeholder={CPrice} className="w-24 h-6 mr-12 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  ></input>
+            <input type="text" onChange={handleChange} name="CP" placeholder={CPrice} className="w-24 h-6 mr-12 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required></input>
               </div>
               <div className=" flex flex-row   mb-4">
                 
                 <span className="mb-2  mr-6 text-base font-medium font-medium text-gray-900 dark:text-gray-300">Build Year</span>
-              <input type="text" onChange={handleChange} name="year" placeholder={Build} className="w-24 h-6  border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></input>
+              <input type="text" onChange={handleChange} name="year" placeholder={Build} className="w-24 h-6  border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></input>
                 </div>
             </div>
             
@@ -355,7 +355,7 @@ sell
                         type="file"
                         name="image1"
                         src={Images[0]}
-                        ></input>
+                        required></input>
             <input
                         id="photo"
                         className="document document w-32 h-24 border-2"
@@ -409,19 +409,19 @@ sell
             <div className="h-1/2 w-full flex ">
             <div className=" h-full flex ">
             <span className="mb-2 ml-12 mr-4 text-base font-medium text-gray-900 dark:text-gray-300">Daily</span>
-            <input type="text" onChange={handleChange} name="day" placeholder={Daily}  className="w-16 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  ></input>
+            <input type="text" onChange={handleChange} name="day" placeholder={Daily}  className="w-16 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required ></input>
               
             </div>
             
             <div className=" h-full flex ">
             <span className="mb-2 mr-4 text-base font-medium text-gray-900 dark:text-gray-300">Weekly</span>
-            <input type="text"  onChange={handleChange} name="week" placeholder={Weekly} className="w-16 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  ></input>
+            <input type="text"  onChange={handleChange} name="week" placeholder={Weekly} className="w-16 h-6 mr-4 border border-gray-300 text-lime-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required ></input>
               
             </div>
             
             <div className=" h-full flex ">
             <span className="mb-2 mr-4 text-sm text-base font-medium text-gray-900 dark:text-gray-300">Monthly</span>
-            <input type="text" onChange={handleChange} name="month" placeholder={Monthly}  className=" w-16 h-6  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  ></input>
+            <input type="text" onChange={handleChange} name="month" placeholder={Monthly}  className=" w-16 h-6  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required ></input>
               
             </div>
             
