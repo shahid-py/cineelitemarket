@@ -11,12 +11,12 @@ import { useNavigate } from "react-router-dom";
 export function KitCard({ product }) {
   const navigate = useNavigate();
   const {
-    state: { kit},
+   
     dispatch
   } = useData();
-  const isInKit = kit;
+  
   const { _id, Company, Model, Images ,Imageexist  ,Description , CPrice ,Build , Daily, Weekly ,Monthly,SPrice , Condition, Serial } = product;
-  // console.log(product.Images, product.Description);
+  
   const [style, setStyle] = useState("bg-red-400   rounded-xl border border-1 border-cyan-100 w-56 h-80 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col ")
  const [styleagain,setagainStyle] = useState();
   const [edit, setEdit] = useState(false)
@@ -41,7 +41,7 @@ export function KitCard({ product }) {
     reader.readAsDataURL(file);
     reader.onload = (re) => {
       prodImages.push(re.target.result)
-      // setProfilePhoto()
+     
     };
   }
 
@@ -76,25 +76,27 @@ if(typeof console !== 'undefined'){
     e.preventDefault();
     const thisProduct = {...productDetails, ["Images"]:prodImages}
     console.log(thisProduct)
-    await axios.post(`${API_URL}/kit/sellKit`, thisProduct);
+    await axios.post(`${API_URL}/kit/sellKit/`, thisProduct);
  
   
   }
   const getStyle=()=>{
-    if(product.Status=="Available"){
+    if(product.Status==="Available"){
       setStyle(" rounded-l-2xl border-l-16 border-l-green-500 rounded-xl border border-1  w-56 h-80 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col ")
     }    
   }
 
 
   const getSellingStyle=()=>{
-    if(product.SellStatus=="Selling"){
+    if(product.SellStatus==="Selling"){
       setagainStyle("relative")
     
     }    
   }
+
  
   useEffect(()=>{
+
     getStyle();
     getSellingStyle();
    
@@ -172,28 +174,29 @@ sell
   >
     <img
       src={Images[0]}
+      alt=""
       
  
     />
     <img
       src={Images[1]}
-      
+      alt=""
     />
     <img
       src={Images[2]}
-      
+      alt=""
     />
     <img
       src={Images[3]}
-      
+      alt=""
     />
     <img
       src={Images[4]}
-      
+      alt=""
     />
     <img
       src={Images[5]}
-      
+      alt=""
     />
   </Carousel>
 </div>
