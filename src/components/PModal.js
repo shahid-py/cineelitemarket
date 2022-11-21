@@ -1,7 +1,7 @@
 import React from "react";
 import { Popup } from "./Popup";
 
-const Modal = ({ visible, onClose,pItem}) => {
+const PModal = ({ visible, onClose,pItem}) => {
   const handleOnClose = (e) => {
     if (e.target.id === "container") onClose();
   };
@@ -19,4 +19,4 @@ const Modal = ({ visible, onClose,pItem}) => {
   );
 };
 
-export default Modal;
+export default PModal;

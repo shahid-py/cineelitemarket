@@ -1,9 +1,10 @@
 import AddPackage from './AddPackage'
 import React from 'react'
 
-const PacBox = ({setShowMyModal,pac}) => {
+const PacBox = ({setShowMyModal,pac,packageName}) => {
   return (
     <div class="box-content h-4 w-90 p-3 border-4 col-span-3 mx-5">
+    {packageName}
     <div onClick={() => setShowMyModal(true)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
