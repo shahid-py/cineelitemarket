@@ -1,0 +1,35 @@
+#vector{
+ background-image: url(../assets/images/Vector.png);
+ background-repeat: no-repeat;
+ margin-top: 2px;
+ width: 21.2px ;
+ height: 20.9px;
+}
+
+#Pencil{
+    background-image: url(../assets/images/Pencil.png);
+    /* background-repeat: no-repeat; */
+    width: 20.23px ;
+    height: 21.33px;
+    position: fixed;
+    margin-left: 870px;
+    margin-top: -2px;
+}
+
+#invoice{
+    background-image: url(../assets/images/invoiceIconWHT\ 2.png);
+    background-repeat: no-repeat;
+    width: 21.47px;
+    height: 30px;
+    position: fixed;
+    margin-top: -6px ;
+    margin-left: 650px;
+}
+
+#invoiceText{
+    color: white;
+    position: fixed;
+    margin-left: 680px;
+    margin-top: -4px;
+}
+

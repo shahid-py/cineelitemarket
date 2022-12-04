@@ -15,6 +15,7 @@ const PacDetails = ({ show, toClose,handlePname,packageName,setPackageName,creat
     console.log(name1)
     packageName(name1)
     createBox();
+    toClose();
   }
 
 
